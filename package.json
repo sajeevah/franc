@@ -6,53 +6,51 @@
   "repository": "https://github.com/wooorm/franc",
   "bugs": "https://github.com/wooorm/franc/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "type": "module",
+  "workspaces": [
+    "packages/franc",
+    "packages/franc-all",
+    "packages/franc-cli",
+    "packages/franc-min"
+  ],
   "devDependencies": {
-    "alpha-sort": "^3.0.0",
-    "browserify": "^17.0.0",
-    "format": "^0.2.0",
-    "human-format": "^0.11.0",
-    "is-hidden": "^1.0.0",
-    "iso-639-3": "^2.0.0",
-    "lerna": "^3.0.0",
-    "negate": "^1.0.0",
-    "nyc": "^15.0.0",
+    "@types/mdast": "^3.0.0",
+    "@types/node": "^18.0.0",
+    "@types/parse-author": "^2.0.0",
+    "@unicode/unicode-15.0.0": "^1.0.0",
+    "alpha-sort": "^5.0.0",
+    "c8": "^7.0.0",
+    "hast-util-from-html": "^1.0.0",
+    "hast-util-select": "^5.0.0",
+    "hast-util-to-string": "^2.0.0",
+    "import-meta-resolve": "^2.0.0",
+    "is-hidden": "^2.0.0",
+    "iso-639-3": "^3.0.0",
     "parse-author": "^2.0.0",
     "prettier": "^2.0.0",
-    "remark-cli": "^9.0.0-alpha.1",
-    "remark-lint-no-heading-punctuation": "^2.0.0",
-    "remark-lint-no-html": "^2.0.0",
-    "remark-lint-table-pipe-alignment": "^2.0.0",
-    "remark-preset-wooorm": "^8.0.0",
-    "remark-stringify": "^8.0.0",
-    "speakers": "^1.0.0",
-    "tape": "^5.0.0",
-    "tinyify": "^3.0.0",
-    "trigrams": "^4.0.0",
-    "udhr": "^4.0.0",
-    "unicode-12.1.0": "^0.8.0",
-    "unified": "^9.0.0",
-    "unist-builder": "^2.0.0",
-    "xo": "^0.33.0",
-    "xtend": "^4.0.0"
+    "remark-cli": "^11.0.0",
+    "remark-gfm": "^3.0.0",
+    "remark-lint-no-heading-punctuation": "^3.0.0",
+    "remark-lint-no-html": "^3.0.0",
+    "remark-lint-table-pipe-alignment": "^3.0.0",
+    "remark-preset-wooorm": "^9.0.0",
+    "remark-stringify": "^10.0.0",
+    "speakers": "^2.0.0",
+    "trigrams": "^5.0.0",
+    "type-coverage": "^2.0.0",
+    "type-fest": "^3.0.0",
+    "typescript": "^4.0.0",
+    "udhr": "^5.0.0",
+    "unified": "^10.0.0",
+    "xo": "^0.53.0"
   },
   "scripts": {
-    "postinstall": "lerna bootstrap --no-ci",
-    "generate": "node script/build",
+    "generate": "node --conditions development script/build.js",
+    "build": "tsc --build --clean && tsc --build && type-coverage",
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
-    "build-bundle-s": "browserify packages/franc-min -s franc -p tinyify > franc-min.js",
-    "build-bundle-m": "browserify packages/franc -s franc -p tinyify > franc.js",
-    "build-bundle-l": "browserify packages/franc-all -s franc -p tinyify > franc-all.js",
-    "build-bundle": "npm run build-bundle-s && npm run build-bundle-m && npm run build-bundle-l",
-    "build": "npm run build-bundle",
-    "test-api": "node test",
-    "test-coverage": "nyc --reporter lcov tape test/index.js",
-    "test": "npm run generate && npm run format && npm run build && npm run test-coverage"
-  },
-  "nyc": {
-    "check-coverage": true,
-    "lines": 100,
-    "functions": 100,
-    "branches": 100
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
+    "test": "npm run generate && npm run build && npm run format && npm run test-coverage"
   },
   "prettier": {
     "tabWidth": 2,
@@ -64,28 +62,20 @@
   },
   "xo": {
     "prettier": true,
-    "esnext": false,
     "rules": {
-      "unicorn/no-fn-reference-in-iterator": "off",
-      "unicorn/no-hex-escape": "off",
-      "unicorn/prefer-includes": "off",
-      "unicorn/prefer-number-properties": "off",
       "camelcase": "off",
-      "guard-for-in": "off",
+      "max-depth": "off",
       "no-misleading-character-class": "off"
-    },
-    "ignores": [
-      "franc-all.js",
-      "franc-min.js",
-      "franc.js"
-    ]
+    }
   },
   "remarkConfig": {
     "plugins": [
-      "preset-wooorm",
+      "remark-preset-wooorm",
       [
-        "gfm",
-        {"tablePipeAlign": false}
+        "remark-gfm",
+        {
+          "tablePipeAlign": false
+        }
       ],
       [
         "remark-lint-table-pipe-alignment",
@@ -100,5 +90,11 @@
         false
       ]
     ]
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true,
+    "ignoreCatch": true
   }
 }

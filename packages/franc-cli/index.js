@@ -1,13 +1,22 @@
 #!/usr/bin/env node
-'use strict'
+/**
+ * @typedef {import('franc').Options} Options
+ */
 
-var meow = require('meow')
-var franc = require('franc')
-var pack = require('./package')
+import process from 'node:process'
+import fs from 'node:fs/promises'
+import meow from 'meow'
+import {franc, francAll} from 'franc'
 
-var command = Object.keys(pack.bin)[0]
+/** @type {Record<string, unknown> & {bin: Record<string, string>}} */
+const pack = JSON.parse(
+  String(await fs.readFile(new URL('package.json', import.meta.url)))
+)
 
-var cli = meow(help(), {
+const command = Object.keys(pack.bin)[0]
+
+const cli = meow(help(), {
+  importMeta: import.meta,
   flags: {
     all: {
       type: 'boolean',
@@ -44,37 +53,39 @@ var cli = meow(help(), {
   }
 })
 
-var value = cli.input.join(' ').trim()
-var flags = cli.flags
+const value = cli.input.join(' ').trim()
+const flags = cli.flags
 
-flags.minLength = Number(flags.minLength) || null
-
-flags.whitelist = list(flags.whitelist)
-flags.blacklist = list(flags.blacklist)
-flags.only = flags.whitelist.concat(list(flags.only))
-flags.ignore = flags.blacklist.concat(list(flags.ignore))
+/** @type {Options} */
+const options = {
+  minLength: Number(flags.minLength) || undefined,
+  // @ts-expect-error: legacy.
+  whitelist: list(flags.whitelist),
+  blacklist: list(flags.blacklist),
+  only: list(flags.only),
+  ignore: list(flags.ignore)
+}
 
 if (cli.input.length === 0) {
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
-  process.stdin.on('data', function (data) {
-    detect(data.trim())
+  process.stdin.on('data', (data) => {
+    detect(String(data).trim())
   })
 } else {
   detect(value)
 }
 
+/**
+ * @param {string} value
+ */
 function detect(value) {
-  var options = {
-    minLength: flags.minLength,
-    only: flags.only,
-    ignore: flags.ignore
-  }
-
   if (flags.all) {
-    franc.all(value, options).forEach(function (language) {
-      console.log(language[0] + ' ' + language[1])
-    })
+    const results = francAll(value, options)
+    let index = -1
+    while (++index < results.length) {
+      console.log(results[index][0] + ' ' + results[index][1])
+    }
   } else {
     console.log(franc(value, options))
   }
@@ -113,6 +124,10 @@ function help() {
   ].join('\n')
 }
 
+/**
+ * @param {string|undefined} value
+ * @returns {Array<string>}
+ */
 function list(value) {
   return value ? String(value).split(',') : []
 }

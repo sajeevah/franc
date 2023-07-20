@@ -2,14 +2,18 @@
 
 # franc-min
 
-> Detect the language of text.
+Detect the language of text.
 
 Built with support for 82 languages (8M or more speakers).
 
 View the [monorepo](https://github.com/wooorm/franc) for more packages and
-usage information.
+info on using them.
 
 ## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
+In Node.js (version 14.14+, 16.0+), install with
+[npm](https://docs.npmjs.com/cli/install):
 
 npm:
 
@@ -17,7 +21,7 @@ npm:
 npm install franc-min
 ```
 
-## Support
+## Data
 
 This build supports the following languages:
 
@@ -35,7 +39,8 @@ This build supports the following languages:
 | [`jpn`](http://www-01.sil.org/iso639-3/documentation.asp?id=jpn) | Japanese | 125M |
 | [`fra`](http://www-01.sil.org/iso639-3/documentation.asp?id=fra) | French | 124M |
 | [`deu`](http://www-01.sil.org/iso639-3/documentation.asp?id=deu) | German | 121M |
-| [`jav`](http://www-01.sil.org/iso639-3/documentation.asp?id=jav) | Javanese | 76M |
+| [`jav`](http://www-01.sil.org/iso639-3/documentation.asp?id=jav) | Javanese (Javanese) | 76M |
+| [`jav`](http://www-01.sil.org/iso639-3/documentation.asp?id=jav) | Javanese (Latin) | 76M |
 | [`kor`](http://www-01.sil.org/iso639-3/documentation.asp?id=kor) | Korean | 75M |
 | [`tel`](http://www-01.sil.org/iso639-3/documentation.asp?id=tel) | Telugu | 73M |
 | [`vie`](http://www-01.sil.org/iso639-3/documentation.asp?id=vie) | Vietnamese | 67M |
@@ -47,13 +52,11 @@ This build supports the following languages:
 | [`guj`](http://www-01.sil.org/iso639-3/documentation.asp?id=guj) | Gujarati | 44M |
 | [`pol`](http://www-01.sil.org/iso639-3/documentation.asp?id=pol) | Polish | 44M |
 | [`ukr`](http://www-01.sil.org/iso639-3/documentation.asp?id=ukr) | Ukrainian | 41M |
-| [`fas`](http://www-01.sil.org/iso639-3/documentation.asp?id=fas) | Persian | 40M |
 | [`kan`](http://www-01.sil.org/iso639-3/documentation.asp?id=kan) | Kannada | 38M |
 | [`mai`](http://www-01.sil.org/iso639-3/documentation.asp?id=mai) | Maithili | 35M |
 | [`mal`](http://www-01.sil.org/iso639-3/documentation.asp?id=mal) | Malayalam | 34M |
+| [`pes`](http://www-01.sil.org/iso639-3/documentation.asp?id=pes) | Iranian Persian | 33M |
 | [`mya`](http://www-01.sil.org/iso639-3/documentation.asp?id=mya) | Burmese | 31M |
-| [`ori`](http://www-01.sil.org/iso639-3/documentation.asp?id=ori) | Oriya (macrolanguage) | 31M |
-| [`gax`](http://www-01.sil.org/iso639-3/documentation.asp?id=gax) | Borana-Arsi-Guji Oromo | 30M |
 | [`swh`](http://www-01.sil.org/iso639-3/documentation.asp?id=swh) | Swahili (individual language) | 30M |
 | [`sun`](http://www-01.sil.org/iso639-3/documentation.asp?id=sun) | Sundanese | 27M |
 | [`ron`](http://www-01.sil.org/iso639-3/documentation.asp?id=ron) | Romanian | 26M |
@@ -76,7 +79,7 @@ This build supports the following languages:
 | [`zlm`](http://www-01.sil.org/iso639-3/documentation.asp?id=zlm) | Malay (individual language) (Arabic) | 18M |
 | [`zlm`](http://www-01.sil.org/iso639-3/documentation.asp?id=zlm) | Malay (individual language) (Latin) | 18M |
 | [`ibo`](http://www-01.sil.org/iso639-3/documentation.asp?id=ibo) | Igbo | 17M |
-| [`nep`](http://www-01.sil.org/iso639-3/documentation.asp?id=nep) | Nepali (macrolanguage) | 16M |
+| [`npi`](http://www-01.sil.org/iso639-3/documentation.asp?id=npi) | Nepali (individual language) | 16M |
 | [`ceb`](http://www-01.sil.org/iso639-3/documentation.asp?id=ceb) | Cebuano | 15M |
 | [`skr`](http://www-01.sil.org/iso639-3/documentation.asp?id=skr) | Saraiki | 15M |
 | [`tgl`](http://www-01.sil.org/iso639-3/documentation.asp?id=tgl) | Tagalog | 15M |
@@ -87,6 +90,7 @@ This build supports the following languages:
 | [`koi`](http://www-01.sil.org/iso639-3/documentation.asp?id=koi) | Komi-Permyak | 13M |
 | [`ell`](http://www-01.sil.org/iso639-3/documentation.asp?id=ell) | Modern Greek (1453-) | 12M |
 | [`ces`](http://www-01.sil.org/iso639-3/documentation.asp?id=ces) | Czech | 12M |
+| [`mag`](http://www-01.sil.org/iso639-3/documentation.asp?id=mag) | Magahi | 11M |
 | [`run`](http://www-01.sil.org/iso639-3/documentation.asp?id=run) | Rundi | 11M |
 | [`bel`](http://www-01.sil.org/iso639-3/documentation.asp?id=bel) | Belarusian | 10M |
 | [`plt`](http://www-01.sil.org/iso639-3/documentation.asp?id=plt) | Plateau Malagasy | 10M |

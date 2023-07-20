@@ -7,8 +7,6 @@ and usage information.
 
 ## Install
 
-npm:
-
 ```sh
 npm install franc-cli --global
 ```

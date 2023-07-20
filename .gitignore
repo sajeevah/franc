@@ -1,11 +1,8 @@
-.DS_Store
-*.log
-.nyc_output/
 coverage/
 node_modules/
-/franc.js
-/franc-min.js
-/franc-all.js
 packages/franc-all/index.js
 packages/franc-min/index.js
+.DS_Store
+*.d.ts
+*.log
 yarn.lock
